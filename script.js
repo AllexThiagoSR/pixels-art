@@ -22,9 +22,21 @@ const chooseColors = () => {
   localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
 }
 
-// const createMatriz = () => {};
+const createMatriz = (quantity, parent) => {
+  for (let i = 1; i <= quantity; i += 1) {
+    const section = document.createElement('section');
+    for (let j = 1; j <= quantity; j += 1) {
+      const div = document.createElement('div');
+      div.className = 'pixel';
+      div.style.display = 'inline-block';
+      section.appendChild(div);
+    }
+    parent.appendChild(section);
+  }
+};
 
 buttonToRandom.addEventListener('click', chooseColors);
+createMatriz(5, document.getElementById('pixel-board'));
 
 window.onload = () => {
   if (localStorage.length !== 0) {
