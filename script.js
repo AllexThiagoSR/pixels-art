@@ -11,6 +11,8 @@ const randomizeColor = () => {
 
 buttonToRandom.addEventListener('click', () => {
   for (let color of colors) {
-    console.log(randomizeColor());
+    if (!color.className.includes('black')){
+      color.style.backgroundColor = randomizeColor();
+    }
   }
 })
