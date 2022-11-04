@@ -1,4 +1,4 @@
-#color-palette div:nth-of-type(1) {
+#color-palette div.black {
   background-color: black;
 }
 
@@ -7,4 +7,5 @@
   display: inline-block;
   width: 60px;
   height: 60px;
+  margin: 10px;
 }
