@@ -22,15 +22,21 @@ const chooseColors = () => {
   localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
 }
 
+// const createMatriz = () => {};
+
 buttonToRandom.addEventListener('click', chooseColors);
 
 window.onload = () => {
-  const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
-  const elements = document.getElementsByClassName('color');
+  if (localStorage.length !== 0) {
+    const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
+    const elements = document.getElementsByClassName('color');
 
-  for (let index = 0; index < elements.length; index += 1) {
-    if (!elements[index].className.includes('black')) {
-      elements[index].style.backgroundColor = recuperedColors[index - 1];
+    for (let index = 0; index < elements.length; index += 1) {
+      if (!elements[index].className.includes('black')) {
+        elements[index].style.backgroundColor = recuperedColors[index - 1];
+      }
     }
+  } else {
+    chooseColors();
   }
 };
