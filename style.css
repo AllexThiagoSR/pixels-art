@@ -1,3 +1,7 @@
+body {
+  text-align: center;
+}
+
 .black {
   background-color: black;
 }
@@ -5,7 +9,21 @@
 .color {
   border: 1px solid black;
   display: inline-block;
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   margin: 10px;
+}
+
+.pixel {
+  width: 40px;
+  height: 40px;
+  border: 1px solid black;
+}
+
+#pixel-board {
+  width: fit-content;
+  column-gap: 0;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
