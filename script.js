@@ -10,14 +10,27 @@ const randomizeColor = () => {
 };
 
 const chooseColors = () => {
+  const arrayColors =[];
+  
   for (let color of colors) {
     if (!color.className.includes('black')){
-
-      color.style.backgroundColor = randomizeColor();
+      const randomColor = randomizeColor();
+      color.style.backgroundColor = randomColor;
+      arrayColors.push(randomColor);
     }
   }
+  localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
 }
 
 buttonToRandom.addEventListener('click', chooseColors);
 
-window.onload = chooseColors;
+window.onload = () => {
+  const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
+  const elements = document.getElementsByClassName('color');
+
+  for (let index = 0; index < elements.length; index += 1) {
+    if (!elements[index].className.includes('black')) {
+      elements[index].style.backgroundColor = recuperedColors[index - 1];
+    }
+  }
+};
