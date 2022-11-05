@@ -12,15 +12,12 @@ const randomizeColor = () => {
 
 const chooseColors = () => {
   const arrayColors = [];
-  
-  for (let color of colors) {
-    console.log(color);
-    if (!color.className.includes('black')){
+
+  for (let index = 0; index < colors.length; index += 1) {
+    if (!colors[index].className.includes('black')) {
       const randomColor = randomizeColor();
-      color.style.backgroundColor = randomColor;
+      colors[index].style.backgroundColor = randomColor;
       arrayColors.push(randomColor);
-    } else {
-      color.style.backgroundColor = 'black';
     }
   }
   localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
@@ -29,19 +26,20 @@ const chooseColors = () => {
 const fillPixel = (event) => {
   const pixel = event.target;
   const color = document.querySelector(`.${classes}`);
-  pixel['style']['background-color'] = color.style.backgroundColor;
+  pixel.style.backgroundColor = color.style.backgroundColor;
 };
 
 const createMatriz = (quantity, parent) => {
   for (let i = 1; i <= quantity; i += 1) {
     const section = document.createElement('section');
-    
+
     section.style.height = '40px';
-    section.style.width = `fit-content`;
+    section.style.width = 'fit-content';
     for (let j = 1; j <= quantity; j += 1) {
       const div = document.createElement('div');
       div.className = 'pixel';
       div.style.backgroundColor = 'white';
+      div.addEventListener('click', fillPixel);
       section.appendChild(div);
     }
     parent.appendChild(section);
@@ -63,25 +61,20 @@ const selectColor = (event) => {
 buttonToRandom.addEventListener('click', chooseColors);
 createMatriz(5, document.getElementById('pixel-board'));
 
-for (let element of colors) {
-  element.addEventListener('click', selectColor);
-}
-const divs = document.getElementsByClassName('pixel');
-for (let div of divs) {
-  div.addEventListener('click', fillPixel);
+for (let index = 0; index < colors.length; index += 1) {
+  const color = colors[index];
+  color.addEventListener('click', selectColor);
 }
 
-window.onload = () => {
-  if (localStorage.length !== 0) {
-    const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
-    const elements = document.getElementsByClassName('color');
+if (localStorage.length !== 0) {
+  const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
+  const elements = document.getElementsByClassName('color');
 
-    for (let index = 0; index < elements.length; index += 1) {
-      if (!elements[index].className.includes('black')) {
-        elements[index].style.backgroundColor = recuperedColors[index - 1];
-      }
+  for (let index = 0; index < elements.length; index += 1) {
+    if (!elements[index].className.includes('black')) {
+      elements[index].style.backgroundColor = recuperedColors[index - 1];
     }
-  } else {
-    chooseColors();
   }
-};
+} else {
+  chooseColors();
+}
