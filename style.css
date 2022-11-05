@@ -29,3 +29,7 @@
   width: fit-content;
   height: fit-content;
 }
+
+.selected {
+  translate: 0 -5px;
+}

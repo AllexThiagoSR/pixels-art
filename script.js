@@ -10,7 +10,7 @@ const randomizeColor = () => {
 };
 
 const chooseColors = () => {
-  const arrayColors =[];
+  const arrayColors = [];
   
   for (let color of colors) {
     if (!color.className.includes('black')){
@@ -20,7 +20,7 @@ const chooseColors = () => {
     }
   }
   localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
-}
+};
 
 const createMatriz = (quantity, parent) => {
   for (let i = 1; i <= quantity; i += 1) {
@@ -36,19 +36,25 @@ const createMatriz = (quantity, parent) => {
   }
 };
 
-// const createMatriz = (quantity, parent) => {
-//   for (let j = 1; j <= quantity ** 2; j += 1) {
-//     const div = document.createElement('div');
-//     div.className = 'pixel';
-//     div.style.display = 'block';
-//     div.style.backgroundColor = 'white';
-//     parent.appendChild(div);
-//   }
-//   parent.style.columnCount = quantity;
-// };
+const selectColor = (event) => {
+  const classes = 'selected';
+  const element = event.target;
+  const elementSelected = document.getElementsByClassName(classes);
+
+  if (elementSelected.length === 0) {
+    element.classList.add(classes);
+  } else {
+    elementSelected[0].classList.remove(classes);
+    element.classList.add(classes);
+  }
+};
 
 buttonToRandom.addEventListener('click', chooseColors);
 createMatriz(5, document.getElementById('pixel-board'));
+
+for (let element of colors) {
+  element.addEventListener('click', selectColor);
+}
 
 window.onload = () => {
   if (localStorage.length !== 0) {
