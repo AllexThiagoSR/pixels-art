@@ -1,5 +1,6 @@
 const buttonToRandom = document.getElementById('button-random-color');
 const colors = document.getElementsByClassName('color');
+const classes = 'selected';
 
 const randomizeColor = () => {
   const red = Math.floor(Math.random() * 256);
@@ -13,23 +14,34 @@ const chooseColors = () => {
   const arrayColors = [];
   
   for (let color of colors) {
+    console.log(color);
     if (!color.className.includes('black')){
       const randomColor = randomizeColor();
       color.style.backgroundColor = randomColor;
       arrayColors.push(randomColor);
+    } else {
+      color.style.backgroundColor = 'black';
     }
   }
   localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
 };
 
+const fillPixel = (event) => {
+  const pixel = event.target;
+  const color = document.querySelector(`.${classes}`);
+  pixel['style']['background-color'] = color.style.backgroundColor;
+};
+
 const createMatriz = (quantity, parent) => {
   for (let i = 1; i <= quantity; i += 1) {
     const section = document.createElement('section');
+    
     section.style.height = '40px';
     section.style.width = `fit-content`;
     for (let j = 1; j <= quantity; j += 1) {
       const div = document.createElement('div');
       div.className = 'pixel';
+      div.style.backgroundColor = 'white';
       section.appendChild(div);
     }
     parent.appendChild(section);
@@ -37,7 +49,6 @@ const createMatriz = (quantity, parent) => {
 };
 
 const selectColor = (event) => {
-  const classes = 'selected';
   const element = event.target;
   const elementSelected = document.getElementsByClassName(classes);
 
@@ -54,6 +65,10 @@ createMatriz(5, document.getElementById('pixel-board'));
 
 for (let element of colors) {
   element.addEventListener('click', selectColor);
+}
+const divs = document.getElementsByClassName('pixel');
+for (let div of divs) {
+  div.addEventListener('click', fillPixel);
 }
 
 window.onload = () => {
