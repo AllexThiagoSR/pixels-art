@@ -1,4 +1,5 @@
 const buttonToRandom = document.getElementById('button-random-color');
+const buttonToClear = document.getElementById('clear-board');
 const colors = document.getElementsByClassName('color');
 const classes = 'selected';
 
@@ -58,7 +59,16 @@ const selectColor = (event) => {
   }
 };
 
+const clearPixels = () => {
+  const pixels = document.getElementsByClassName('pixel');
+
+  for (let index = 0; index < pixels.length; index += 1) {
+    pixels[index].style.backgroundColor = 'white';
+  }
+};
+
 buttonToRandom.addEventListener('click', chooseColors);
+buttonToClear.addEventListener('click', clearPixels);
 createMatriz(5, document.getElementById('pixel-board'));
 
 for (let index = 0; index < colors.length; index += 1) {
