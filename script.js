@@ -22,30 +22,30 @@ const chooseColors = () => {
   localStorage.setItem('colorPalette', JSON.stringify(arrayColors));
 }
 
-// const createMatriz = (quantity, parent) => {
-//   for (let i = 1; i <= quantity; i += 1) {
-//     const section = document.createElement('section');
-//     for (let j = 1; j <= quantity; j += 1) {
-//       const div = document.createElement('div');
-//       div.className = 'pixel';
-//       div.style.display = 'inline-block';
-//       div.style.backgroundColor = 'white';
-//       section.appendChild(div);
-//     }
-//     parent.appendChild(section);
-//   }
-// };
-
 const createMatriz = (quantity, parent) => {
-  for (let j = 1; j <= quantity ** 2; j += 1) {
-    const div = document.createElement('div');
-    div.className = 'pixel';
-    div.style.display = 'block';
-    div.style.backgroundColor = 'white';
-    parent.appendChild(div);
+  for (let i = 1; i <= quantity; i += 1) {
+    const section = document.createElement('section');
+    section.style.height = '40px';
+    section.style.width = `fit-content`;
+    for (let j = 1; j <= quantity; j += 1) {
+      const div = document.createElement('div');
+      div.className = 'pixel';
+      section.appendChild(div);
+    }
+    parent.appendChild(section);
   }
-  parent.style.columnCount = quantity;
 };
+
+// const createMatriz = (quantity, parent) => {
+//   for (let j = 1; j <= quantity ** 2; j += 1) {
+//     const div = document.createElement('div');
+//     div.className = 'pixel';
+//     div.style.display = 'block';
+//     div.style.backgroundColor = 'white';
+//     parent.appendChild(div);
+//   }
+//   parent.style.columnCount = quantity;
+// };
 
 buttonToRandom.addEventListener('click', chooseColors);
 createMatriz(5, document.getElementById('pixel-board'));
