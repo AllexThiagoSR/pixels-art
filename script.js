@@ -2,6 +2,24 @@ const buttonToRandom = document.getElementById('button-random-color');
 const buttonToClear = document.getElementById('clear-board');
 const colors = document.getElementsByClassName('color');
 const classes = 'selected';
+const pixelBoard = 'pixelBoard'
+
+const checkKey = () => {
+  if (localStorage[pixelBoard] === undefined) {
+    localStorage.setItem(pixelBoard, '[]');
+  }
+};
+
+const setStoraged = () => {
+  const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard));
+  if (setStoraged !== undefined) {
+    for (let index = 0; index < storagedPixels.length; index += 1) {
+      const element = document.getElementById(storagedPixels[index].id);
+      element.style.backgroundColor = storagedPixels[index].color;
+      // console.log(element);
+    }
+  }
+};
 
 const randomizeColor = () => {
   const red = Math.floor(Math.random() * 256);
@@ -27,7 +45,11 @@ const chooseColors = () => {
 const fillPixel = (event) => {
   const pixel = event.target;
   const color = document.querySelector(`.${classes}`);
+  const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard));
+
   pixel.style.backgroundColor = color.style.backgroundColor;
+  storagedPixels.push({'id': pixel.id, 'color': pixel.style.backgroundColor});
+  localStorage.pixelBoard = JSON.stringify(storagedPixels);
 };
 
 const createMatriz = (quantity, parent) => {
@@ -39,6 +61,7 @@ const createMatriz = (quantity, parent) => {
     for (let j = 1; j <= quantity; j += 1) {
       const div = document.createElement('div');
       div.className = 'pixel';
+      div.id = `div-${i}-${j}`;
       div.style.backgroundColor = 'white';
       div.addEventListener('click', fillPixel);
       section.appendChild(div);
@@ -61,22 +84,16 @@ const selectColor = (event) => {
 
 const clearPixels = () => {
   const pixels = document.getElementsByClassName('pixel');
+  localStorage.setItem(pixelBoard, '[]');
 
   for (let index = 0; index < pixels.length; index += 1) {
     pixels[index].style.backgroundColor = 'white';
   }
 };
 
-buttonToRandom.addEventListener('click', chooseColors);
-buttonToClear.addEventListener('click', clearPixels);
-createMatriz(5, document.getElementById('pixel-board'));
+checkKey();
 
-for (let index = 0; index < colors.length; index += 1) {
-  const color = colors[index];
-  color.addEventListener('click', selectColor);
-}
-
-if (localStorage.length !== 0) {
+if (localStorage['colorPalette'] !== undefined) {
   const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
   const elements = document.getElementsByClassName('color');
 
@@ -87,4 +104,14 @@ if (localStorage.length !== 0) {
   }
 } else {
   chooseColors();
+}
+
+buttonToRandom.addEventListener('click', chooseColors);
+buttonToClear.addEventListener('click', clearPixels);
+createMatriz(5, document.getElementById('pixel-board'));
+setStoraged();
+
+for (let index = 0; index < colors.length; index += 1) {
+  const color = colors[index];
+  color.addEventListener('click', selectColor);
 }
