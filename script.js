@@ -6,17 +6,16 @@ const pixelBoard = 'pixelBoard';
 
 const checkKey = () => {
   if (localStorage[pixelBoard] === undefined) {
-    localStorage.setItem(pixelBoard, '[]');
+    localStorage.setItem(pixelBoard, '{}');
   }
 };
 
 const setStoraged = () => {
   const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard));
   if (setStoraged !== undefined) {
-    for (let index = 0; index < storagedPixels.length; index += 1) {
-      const element = document.getElementById(storagedPixels[index].id);
-      element.style.backgroundColor = storagedPixels[index].color;
-      // console.log(element);
+    for (const key in storagedPixels) {
+      const element = document.getElementById(key);
+      element.style.backgroundColor = storagedPixels[key];
     }
   }
 };
@@ -48,7 +47,7 @@ const fillPixel = (event) => {
   const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard));
 
   pixel.style.backgroundColor = color.style.backgroundColor;
-  storagedPixels.push({ id: pixel.id, color: pixel.style.backgroundColor });
+  storagedPixels[pixel.id] = pixel.style.backgroundColor;
   localStorage.pixelBoard = JSON.stringify(storagedPixels);
 };
 
@@ -84,7 +83,7 @@ const selectColor = (event) => {
 
 const clearPixels = () => {
   const pixels = document.getElementsByClassName('pixel');
-  localStorage.setItem(pixelBoard, '[]');
+  localStorage.setItem(pixelBoard, '{}');
 
   for (let index = 0; index < pixels.length; index += 1) {
     pixels[index].style.backgroundColor = 'white';
