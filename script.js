@@ -2,7 +2,7 @@ const buttonToRandom = document.getElementById('button-random-color');
 const buttonToClear = document.getElementById('clear-board');
 const colors = document.getElementsByClassName('color');
 const classes = 'selected';
-const pixelBoard = 'pixelBoard'
+const pixelBoard = 'pixelBoard';
 
 const checkKey = () => {
   if (localStorage[pixelBoard] === undefined) {
@@ -48,7 +48,7 @@ const fillPixel = (event) => {
   const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard));
 
   pixel.style.backgroundColor = color.style.backgroundColor;
-  storagedPixels.push({'id': pixel.id, 'color': pixel.style.backgroundColor});
+  storagedPixels.push({ id: pixel.id, color: pixel.style.backgroundColor });
   localStorage.pixelBoard = JSON.stringify(storagedPixels);
 };
 
@@ -93,7 +93,7 @@ const clearPixels = () => {
 
 checkKey();
 
-if (localStorage['colorPalette'] !== undefined) {
+if (localStorage.colorPalette !== undefined) {
   const recuperedColors = JSON.parse(localStorage.getItem('colorPalette'));
   const elements = document.getElementsByClassName('color');
 
