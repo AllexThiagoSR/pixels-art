@@ -59,7 +59,8 @@ const fillPixel = (event) => {
 };
 
 const createMatriz = (quantity, parent) => {
-  parent.innerHTML = '';
+  const auxiParent = parent;
+  auxiParent.innerHTML = '';
   for (let i = 1; i <= quantity; i += 1) {
     const section = document.createElement('section');
 
@@ -114,17 +115,19 @@ if (localStorage.colorPalette !== undefined) {
 }
 
 const minAndMaxBoard = (boardSize, fuctionToExecute) => {
+  let auxi = boardSize;
+
   if (boardSize < 5) {
-    boardSize = 5;
+    auxi = 5;
   } else if (boardSize > 50) {
-    boardSize = 50;
+    auxi = 50;
   }
-  fuctionToExecute(boardSize, document.getElementById('pixel-board'))
+  fuctionToExecute(auxi, document.getElementById('pixel-board'));
 };
 
-const chooseBoardSize = () =>{
+const chooseBoardSize = () => {
   const inputValue = input.value;
-  
+
   console.log(inputValue);
   if (inputValue === '') {
     alert('Board inválido!');
@@ -134,7 +137,7 @@ const chooseBoardSize = () =>{
     localStorage.boardSize = JSON.stringify(inputValue);
     input.value = '';
   }
-}
+};
 
 buttonToRandom.addEventListener('click', chooseColors);
 
@@ -149,6 +152,8 @@ input.addEventListener('keyup', (event) => {
 });
 
 buttonMatriz.addEventListener('click', chooseBoardSize);
+
+console.log(localStorage.getItem('boardSize'));
 
 if (localStorage.boardSize === undefined) {
   localStorage.setItem('boardSize', '5');
