@@ -1,6 +1,8 @@
 const buttonToRandom = document.getElementById('button-random-color');
 const buttonToClear = document.getElementById('clear-board');
+const buttonMatriz = document.getElementById('generate-board');
 const colors = document.getElementsByClassName('color');
+const input = document.getElementById('board-size');
 const classes = 'selected';
 const pixelBoard = 'pixelBoard';
 
@@ -57,6 +59,7 @@ const fillPixel = (event) => {
 };
 
 const createMatriz = (quantity, parent) => {
+  parent.innerHTML = '';
   for (let i = 1; i <= quantity; i += 1) {
     const section = document.createElement('section');
 
@@ -112,6 +115,16 @@ if (localStorage.colorPalette !== undefined) {
 
 buttonToRandom.addEventListener('click', chooseColors);
 buttonToClear.addEventListener('click', clearPixels);
+buttonMatriz.addEventListener('click', () =>{
+  const inputValue = input.value;
+  input.value = '';
+
+  if (inputValue === '') {
+    alert('Board inválido!');
+  } else if (Number(inputValue) > 0) {
+    createMatriz(Number(inputValue), document.getElementById('pixel-board'));
+  }
+});
 createMatriz(5, document.getElementById('pixel-board'));
 setStoraged();
 
