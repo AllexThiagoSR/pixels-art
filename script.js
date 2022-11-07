@@ -12,20 +12,25 @@ const checkKey = () => {
 
 const setStoraged = () => {
   const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard));
-  if (setStoraged !== undefined) {
-    for (const key in storagedPixels) {
-      const element = document.getElementById(key);
-      element.style.backgroundColor = storagedPixels[key];
+  if (storagedPixels !== undefined) {
+    const keys = Object.keys(storagedPixels);
+    for (let index = 0; index < keys.length; index += 1) {
+      const element = document.getElementById(keys[index]);
+      element.style.backgroundColor = storagedPixels[keys[index]];
     }
   }
 };
 
 const randomizeColor = () => {
-  const red = Math.floor(Math.random() * 256);
-  const green = Math.floor(Math.random() * 256);
-  const blue = Math.floor(Math.random() * 256);
+  let color = 'rgb(255, 255, 255)';
 
-  return `rgb(${red}, ${green}, ${blue})`;
+  while (color === 'rgb(255, 255, 255)') {
+    const red = Math.floor(Math.random() * 256);
+    const green = Math.floor(Math.random() * 256);
+    const blue = Math.floor(Math.random() * 256);
+    color = `rgb(${red}, ${green}, ${blue})`;
+  }
+  return color;
 };
 
 const chooseColors = () => {
