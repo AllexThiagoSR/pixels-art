@@ -131,6 +131,7 @@ const chooseBoardSize = () =>{
     input.value = '';
   } else {
     minAndMaxBoard(inputValue, createMatriz);
+    localStorage.boardSize = JSON.stringify(inputValue);
     input.value = '';
   }
 }
@@ -149,7 +150,11 @@ input.addEventListener('keyup', (event) => {
 
 buttonMatriz.addEventListener('click', chooseBoardSize);
 
-createMatriz(5, document.getElementById('pixel-board'));
+if (localStorage.boardSize === undefined) {
+  localStorage.setItem('boardSize', '5');
+}
+
+createMatriz(JSON.parse(localStorage.getItem('boardSize')), document.getElementById('pixel-board'));
 
 setStoraged();
 
