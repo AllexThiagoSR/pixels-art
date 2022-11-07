@@ -125,18 +125,20 @@ const minAndMaxBoard = (boardSize, fuctionToExecute) => {
 const chooseBoardSize = () =>{
   const inputValue = input.value;
   
-
+  console.log(inputValue);
   if (inputValue === '') {
     alert('Board inválido!');
     input.value = '';
-  } else if (Number(inputValue) > 0) {
-    minAndMaxBoard(Number(inputValue), createMatriz);
+  } else {
+    minAndMaxBoard(inputValue, createMatriz);
     input.value = '';
   }
 }
 
 buttonToRandom.addEventListener('click', chooseColors);
+
 buttonToClear.addEventListener('click', clearPixels);
+
 input.addEventListener('keyup', (event) => {
   const keyPressed = event.key;
 
@@ -144,8 +146,11 @@ input.addEventListener('keyup', (event) => {
     chooseBoardSize();
   }
 });
+
 buttonMatriz.addEventListener('click', chooseBoardSize);
+
 createMatriz(5, document.getElementById('pixel-board'));
+
 setStoraged();
 
 for (let index = 0; index < colors.length; index += 1) {
