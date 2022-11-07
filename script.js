@@ -113,6 +113,15 @@ if (localStorage.colorPalette !== undefined) {
   chooseColors();
 }
 
+const minAndMaxBoard = (boardSize, fuctionToExecute) => {
+  if (boardSize < 5) {
+    boardSize = 5;
+  } else if (boardSize > 50) {
+    boardSize = 50;
+  }
+  fuctionToExecute(boardSize, document.getElementById('pixel-board'))
+};
+
 const chooseBoardSize = () =>{
   const inputValue = input.value;
   input.value = '';
@@ -120,7 +129,7 @@ const chooseBoardSize = () =>{
   if (inputValue === '') {
     alert('Board inválido!');
   } else if (Number(inputValue) > 0) {
-    createMatriz(Number(inputValue), document.getElementById('pixel-board'));
+    minAndMaxBoard(Number(inputValue), createMatriz);
   }
 }
 
