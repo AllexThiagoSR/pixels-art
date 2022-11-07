@@ -113,9 +113,7 @@ if (localStorage.colorPalette !== undefined) {
   chooseColors();
 }
 
-buttonToRandom.addEventListener('click', chooseColors);
-buttonToClear.addEventListener('click', clearPixels);
-buttonMatriz.addEventListener('click', () =>{
+const chooseBoardSize = () =>{
   const inputValue = input.value;
   input.value = '';
 
@@ -124,7 +122,18 @@ buttonMatriz.addEventListener('click', () =>{
   } else if (Number(inputValue) > 0) {
     createMatriz(Number(inputValue), document.getElementById('pixel-board'));
   }
+}
+
+buttonToRandom.addEventListener('click', chooseColors);
+buttonToClear.addEventListener('click', clearPixels);
+input.addEventListener('keyup', (event) => {
+  const keyPressed = event.key;
+
+  if (keyPressed === 'Enter') {
+    chooseBoardSize();
+  }
 });
+buttonMatriz.addEventListener('click', chooseBoardSize);
 createMatriz(5, document.getElementById('pixel-board'));
 setStoraged();
 
