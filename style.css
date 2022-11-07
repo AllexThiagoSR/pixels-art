@@ -25,9 +25,9 @@
   height: fit-content;
 }
 
-.selected {
+/* .selected {
   translate: 0 -5px;
-}
+} */
 
 #clear-board {
   margin-left: 10px;

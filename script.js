@@ -124,12 +124,14 @@ const minAndMaxBoard = (boardSize, fuctionToExecute) => {
 
 const chooseBoardSize = () =>{
   const inputValue = input.value;
-  input.value = '';
+  
 
   if (inputValue === '') {
     alert('Board inválido!');
+    input.value = '';
   } else if (Number(inputValue) > 0) {
     minAndMaxBoard(Number(inputValue), createMatriz);
+    input.value = '';
   }
 }
 
