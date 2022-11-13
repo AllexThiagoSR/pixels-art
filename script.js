@@ -8,7 +8,7 @@ const pixelBoard = 'pixelBoard';
 
 // Checa se existe a chave pixelBoard no localStorage se não existir cria ela
 const checkPixelBoard = () => {
-  // Se na chave pixelBoard de localStorage estiver como indefinido ou seja se não foi utilizada ainda entra no escopo desse if 
+  // Se na chave pixelBoard de localStorage estiver como indefinido ou seja se não foi utilizada ainda entra no escopo desse if
   if (localStorage[pixelBoard] === undefined) {
     localStorage.setItem(pixelBoard, '{}'); // Adiciona a chave pixelBoard no localStorage com um objeto vazio
   }
@@ -18,7 +18,7 @@ const checkPixelBoard = () => {
 const setStoraged = () => {
   const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard)); // Pega no localStorage o objeto salvo na chave pixelBoard
 
-  //Checa para se certificar que tem algo na variável
+  // Checa para se certificar que tem algo na variável
   if (storagedPixels !== undefined) {
     const keys = Object.keys(storagedPixels); // Pega todas as keys do objeto recuperado do localStorage
 
@@ -55,14 +55,14 @@ const chooseColors = () => {
     colors[index].style.backgroundColor = randomColor; // Define a cor de fundo do elemento que tá na posição index atual de colors
     arrayColors.push(randomColor); // Empurra a cor gerada para o array que será salvo
   }
-  
-  localStorage.setItem('colorPalette', JSON.stringify(arrayColors));// Converte o array para strinf e salva o array no localStorage
+
+  localStorage.setItem('colorPalette', JSON.stringify(arrayColors)); // Converte o array para strinf e salva o array no localStorage
 };
 
 // Função do evento de click nos pixels que preenche ele com a cor selecionada
 const fillPixel = (event) => {
   const pixel = event.target; // Pega das informações do objeto event o lugar que foi clicado
-  const color = document.querySelector(`.${classes}`); // Pega do DOM o primeiro(e sempre único) elemento com a classe selected 
+  const color = document.querySelector(`.${classes}`); // Pega do DOM o primeiro(e sempre único) elemento com a classe selected
   const storagedPixels = JSON.parse(localStorage.getItem(pixelBoard)); // Pega o objeto salvo no localStorage que contém as informações sobre os pixels que foram pintados anteriormente e quais as cores deles
 
   pixel.style.backgroundColor = color.style.backgroundColor; // Define a cor de fundo do pixel clicado como a cor de fundo do elemento que possui a classe selected que foi recuperado anteriormente
@@ -77,7 +77,6 @@ const createMatriz = (quantity, parent) => {
   // Loop para criar todas os pixels
   for (let i = 1; i <= quantity; i += 1) {
     const section = document.createElement('section'); // Cria section que vai comportar uma linha pixels
-
     section.style.height = '40px'; // Deixa altura da section fico com a mesma altura do pixel
     section.style.width = 'fit-content'; // Defina a largura da section como a soma da largura de todos os pixels gerados em cada linha
     // Para cada section criada vão ser criadas n divs(pixels)
